@@ -1,4 +1,4 @@
-/target
-/pid-control/target
 .vscode/
-ideas.txt
+install/
+build/
+log/

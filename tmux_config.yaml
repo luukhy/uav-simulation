@@ -1,0 +1,11 @@
+session_name: uav-simulation
+windows:
+    - window_name: simulation
+      layout: tiled
+      panes:
+        - source install/local_setup.bash; ros2 launch uav_sim simulation.launch.py
+    - window_name: controls
+      layout: tiled
+      panes:
+        - sleep 4; ros2 run teleop_twist_keyboard teleop_twist_keyboard
+ 
