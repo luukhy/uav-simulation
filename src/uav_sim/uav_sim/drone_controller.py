@@ -20,7 +20,7 @@ class DroneController(Node):
         wrench_msg = Wrench()
         
         if msg.linear.x > 0.0:
-            wrench_msg.force.z = 20.0  
+            wrench_msg.force.z = 100.0  
             self.get_logger().info('Thrusting UP!')
         else:
             wrench_msg.force.z = 0.0  

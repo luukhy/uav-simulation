@@ -8,11 +8,13 @@ from launch_ros.actions import Node
 def generate_launch_description():
     pkg_uav_sim = get_package_share_directory('uav_sim')
 
+    world_file = os.path.join(pkg_uav_sim, 'worlds', 'my_world.sdf')
+
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(get_package_share_directory('ros_gz_sim'), 'launch', 'gz_sim.launch.py')
         ),
-        launch_arguments={'gz_args': '-r empty.sdf'}.items(),
+        launch_arguments={'gz_args': f'-r {world_file}'}.items(),
     )
 
     spawn_entity = Node(
@@ -27,10 +29,7 @@ def generate_launch_description():
         package='ros_gz_bridge',
         executable='parameter_bridge',
         arguments=[
-            '/model/drone_box/link/base_link/wrench@geometry_msgs/msg/Wrench]gz.msgs.Wrench'
-        ],
-        remappings=[
-            ('/model/drone_box/link/base_link/wrench', '/drone/thrust')
+        '/drone/thrust@geometry_msgs/msg/Wrench]gz.msgs.Wrench'
         ],
         output='screen'
     )

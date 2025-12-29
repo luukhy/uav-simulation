@@ -1,5 +1,6 @@
 from setuptools import find_packages, setup
 import os
+from glob import glob
 
 package_name = 'uav_sim'
 
@@ -13,6 +14,7 @@ setup(
         ('share/' + package_name, ['package.xml']),
         (os.path.join('share', package_name, 'launch'), ['launch/simulation.launch.py']),
         (os.path.join('share', package_name, 'models'), ['models/drone_box.sdf']),
+        (os.path.join('share', package_name, 'worlds'), glob('worlds/*.sdf')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
