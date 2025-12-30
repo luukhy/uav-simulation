@@ -7,7 +7,7 @@
 
     <plugin filename="gz-sim-apply-link-wrench-system"
             name="gz::sim::systems::ApplyLinkWrench">
-        <topic>/model/drone_box/link/base_link/wrench</topic>
+        <!-- <topic>/model/drone_box/link/base_link/wrench</topic> -->
     </plugin>
 
     <light type="directional" name="sun">

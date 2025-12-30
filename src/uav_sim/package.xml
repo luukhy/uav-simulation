@@ -5,10 +5,7 @@
   <version>0.0.0</version>
   <description>TODO: Package description</description>
   <maintainer email="hpiotrek080@gmail.com">piotrek</maintainer>
-  <license>Apache-2.0</license>
-
-  <depend>rclpy</depend>
-  <depend>geometry_msgs</depend>
+  <license>Apache License 2.0</license>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>
