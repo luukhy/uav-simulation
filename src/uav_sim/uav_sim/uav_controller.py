@@ -41,7 +41,7 @@ class UAVController(Node):
         if msg.linear.x > 0.0:
             self.current_force = 11.0
         else:
-            self.current_force = 10.0
+            self.current_force = 0.0
         self.get_logger().info('Updated to : "%d"' %self.current_force)
 
     def pub_force(self):

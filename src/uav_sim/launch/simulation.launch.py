@@ -1,6 +1,6 @@
 from launch import LaunchDescription
 from ament_index_python.packages import get_package_share_directory
-from launch.actions import IncludeLaunchDescription
+from launch.actions import IncludeLaunchDescription, AppendEnvironmentVariable
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
 import os 
@@ -9,7 +9,13 @@ import os
 def generate_launch_description():
     pkg_uav_sim = get_package_share_directory("uav_sim")
 
+    models_path = os.path.join(pkg_uav_sim, "models")
     world_file = os.path.join(pkg_uav_sim, "worlds", "my_world.sdf")
+
+    set_gz_resource_path = AppendEnvironmentVariable(
+        name='GZ_SIM_RESOURCE_PATH',
+        value=models_path
+    )
 
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -18,12 +24,22 @@ def generate_launch_description():
         launch_arguments={'gz_args': f'-r {world_file}'}.items(),
     )
 
-    spawn_entity = Node(
+    spawn_drone_box = Node(
         package="ros_gz_sim",
         executable="create",
         arguments=[
             "-name", "drone_box",
             "-file", os.path.join(pkg_uav_sim, "models", "drone_box.sdf")],
+        output="screen"
+    )
+
+    spawn_drone_model = Node(
+        package="ros_gz_sim",
+        executable="create",
+        arguments=[
+            "-name", "drone_model",
+            "-file", os.path.join(pkg_uav_sim, "models", "parrot_bebop_2", "model.sdf"),
+            "-x", "5.0", "-y", "0.0", "-z", "0.5"], 
         output="screen"
     )
 
@@ -46,8 +62,10 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
+        set_gz_resource_path,
         gazebo,
-        spawn_entity,
+        spawn_drone_box,
+        spawn_drone_model,
         bridge,
         uav_controller
     ])
