@@ -37,7 +37,7 @@ def generate_launch_description():
         package="ros_gz_sim",
         executable="create",
         arguments=[
-            "-name", "drone_model",
+            "-name", "bebop",
             "-file", os.path.join(pkg_uav_sim, "models", "parrot_bebop_2", "model.sdf"),
             "-x", "5.0", "-y", "0.0", "-z", "0.5"], 
         output="screen"

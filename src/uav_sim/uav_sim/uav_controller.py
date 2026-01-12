@@ -3,6 +3,7 @@ from rclpy.node import Node
 from std_msgs.msg import String
 from geometry_msgs.msg import Twist, Wrench
 from ros_gz_interfaces.msg import EntityWrench
+from keyboard_msgs.msg import Key
 
 ENTITY_NONE      = 0
 ENTITY_LIGHT     = 1
@@ -18,8 +19,8 @@ class UAVController(Node):
         super().__init__("uav_controller")
         
         self.sub = self.create_subscription(
-            Twist,
-            "/cmd_vel",
+            Key,
+            "/keydown",
             self.update_force,
             10
         )
@@ -37,21 +38,22 @@ class UAVController(Node):
 
         self.current_force = 0.0
     
-    def update_force(self, msg: Twist):
-        if msg.linear.x > 0.0:
-            self.current_force = 11.0
-        else:
-            self.current_force = 0.0
-        self.get_logger().info('Updated to : "%d"' %self.current_force)
+    def update_force(self, msg: Key):
+        # if msg.linear.x > 0.0:
+        #     self.current_force = 11.0
+        # else:
+        #     self.current_force = 0.0
+        self.get_logger().info('Updated to : "%d"' %msg.code)
 
     def pub_force(self):
-        entity_msg = EntityWrench()
-        entity_msg.entity.name = "drone_box::base_link"
-        entity_msg.entity.type = ENTITY_LINK 
+        pass
+        # entity_msg = EntityWrench()
+        # entity_msg.entity.name = "drone_box::base_link"
+        # entity_msg.entity.type = ENTITY_LINK 
         
-        entity_msg.wrench.force.z = self.current_force
+        # entity_msg.wrench.force.z = self.current_force
 
-        self.pub.publish(entity_msg)
+        # self.pub.publish(entity_msg)
 
 def main(args = None):
     rclpy.init(args=args)
