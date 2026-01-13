@@ -20,6 +20,52 @@
       <visual name="hull">
         <geometry><mesh><uri>model://parrot_bebop_2/meshes/hull.dae</uri></mesh></geometry>
       </visual>
+      <sensor name="imu_sensor" type="imu">
+        <always_on>1</always_on>
+        <update_rate>250</update_rate> <visualize>true</visualize>
+        <topic>imu</topic>
+        <imu>
+          <angular_velocity>
+            <x>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.0</stddev> </noise>
+            </x>
+            <y>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.0</stddev>
+              </noise>
+            </y>
+            <z>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.0</stddev>
+              </noise>
+            </z>
+          </angular_velocity>
+          <linear_acceleration>
+            <x>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.0</stddev>
+              </noise>
+            </x>
+            <y>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.0</stddev>
+              </noise>
+            </y>
+            <z>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.0</stddev>
+              </noise>
+            </z>
+          </linear_acceleration>
+        </imu>
+      </sensor>
     </link>
 
     <link name="propeller_rr">
@@ -100,9 +146,9 @@
       <motorConstant>8.54858e-06</motorConstant>
       <momentConstant>0.016</momentConstant>
 
-      <commandSubTopic>command/motor_speed/0</commandSubTopic>
+      <commandSubTopic>command/motor_speed/prop_rr</commandSubTopic>
       <motorNumber>0</motorNumber>
-      <motorSpeedPubTopic>motor_speed/0</motorSpeedPubTopic>
+      <motorSpeedPubTopic>motor_speed/prop_rr</motorSpeedPubTopic>
 
       <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient>
       <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
@@ -120,9 +166,9 @@
       <motorConstant>8.54858e-06</motorConstant>
       <momentConstant>0.016</momentConstant>
 
-      <commandSubTopic>command/motor_speed/1</commandSubTopic>
+      <commandSubTopic>command/motor_speed/prop_fl</commandSubTopic>
       <motorNumber>0</motorNumber>
-      <motorSpeedPubTopic>motor_speed/1</motorSpeedPubTopic>
+      <motorSpeedPubTopic>motor_speed/prop_fl</motorSpeedPubTopic>
 
       <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient>
       <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
@@ -140,9 +186,9 @@
       <motorConstant>8.54858e-06</motorConstant>
       <momentConstant>0.016</momentConstant>
 
-      <commandSubTopic>command/motor_speed/2</commandSubTopic>
+      <commandSubTopic>command/motor_speed/prop_fr</commandSubTopic>
       <motorNumber>0</motorNumber>
-      <motorSpeedPubTopic>motor_speed/2</motorSpeedPubTopic>
+      <motorSpeedPubTopic>motor_speed/prop_fr</motorSpeedPubTopic>
 
       <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient>
       <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
@@ -160,9 +206,9 @@
       <motorConstant>8.54858e-06</motorConstant>
       <momentConstant>0.016</momentConstant>
 
-      <commandSubTopic>command/motor_speed/3</commandSubTopic>
+      <commandSubTopic>command/motor_speed/prop_rl</commandSubTopic>
       <motorNumber>0</motorNumber>
-      <motorSpeedPubTopic>motor_speed/3</motorSpeedPubTopic>
+      <motorSpeedPubTopic>motor_speed/prop_rl</motorSpeedPubTopic>
 
       <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient>
       <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>

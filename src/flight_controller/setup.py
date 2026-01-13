@@ -4,7 +4,7 @@ package_name = 'flight_controller'
 
 setup(
     name=package_name,
-    version='0.0.0',
+    version='0.0.1',
     packages=find_packages(exclude=['test']),
     data_files=[
         ('share/ament_index/resource_index/packages',
@@ -15,8 +15,8 @@ setup(
     zip_safe=True,
     maintainer='piotrek',
     maintainer_email='hpiotrek080@gmail.com',
-    description='TODO: Package description',
-    license='TODO: License declaration',
+    description='Flight controller for Bebop Parot 2 Gazebo model',
+    license='Apache-2.0',
     extras_require={
         'test': [
             'pytest',
@@ -24,7 +24,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
+            'controller = flight_controller.flight_controller:main',
         ],
-        'flight_controller'
     },
 )

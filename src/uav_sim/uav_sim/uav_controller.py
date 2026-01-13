@@ -56,18 +56,19 @@ class UAVController(Node):
         # self.pub.publish(entity_msg)
 
 def main(args = None):
-    rclpy.init(args=args)
+    # rclpy.init(args=args)
 
-    uav_controller = UAVController()
+    # uav_controller = UAVController()
 
-    try:
-        rclpy.spin(uav_controller)
-    except KeyboardInterrupt:
-        pass
-    finally:
-        uav_controller.destroy_node()
-        if rclpy.ok():
-            rclpy.shutdown()
+    # try:
+    #     rclpy.spin(uav_controller)
+    # except KeyboardInterrupt:
+    #     pass
+    # finally:
+    #     uav_controller.destroy_node()
+    #     if rclpy.ok():
+    #         rclpy.shutdown()
+    pass
 
 if __name__ == '__main__':
     main()

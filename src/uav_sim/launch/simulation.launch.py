@@ -43,9 +43,15 @@ def generate_launch_description():
         output="screen"
     )
 
-    uav_controller = Node(
+    uav_simulation = Node(
         package="uav_sim",
         executable="uav_controller",
+        output="screen"
+    )
+
+    flight_controller = Node(
+        package="flight_controller",
+        executable="controller",
         output="screen"
     )
 
@@ -53,7 +59,11 @@ def generate_launch_description():
         package="ros_gz_bridge",
         executable="parameter_bridge",
         arguments=[
-            "/world/empty/wrench@ros_gz_interfaces/msg/EntityWrench]gz.msgs.EntityWrench"
+            "/world/empty/wrench@ros_gz_interfaces/msg/EntityWrench]gz.msgs.EntityWrench",
+            "/bebop/command/motor_speed/prop_fr@actuator_msgs/msg/Actuators]gz.msgs.Actuators",
+            "/bebop/command/motor_speed/prop_fl@actuator_msgs/msg/Actuators]gz.msgs.Actuators",
+            "/bebop/command/motor_speed/prop_rr@actuator_msgs/msg/Actuators]gz.msgs.Actuators",
+            "/bebop/command/motor_speed/prop_rl@actuator_msgs/msg/Actuators]gz.msgs.Actuators",
         ],
         # remappings=[
         #     ('/drone/thrust', '/world/empty/wrench')
@@ -67,5 +77,6 @@ def generate_launch_description():
         spawn_drone_box,
         spawn_drone_model,
         bridge,
-        uav_controller
+        uav_simulation,
+        flight_controller
     ])
