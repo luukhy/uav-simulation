@@ -9,11 +9,10 @@
             name="gz::sim::systems::ApplyLinkWrench">
         <!-- <topic>/model/drone_box/link/base_link/wrench</topic> -->
     </plugin>
-    <plugin
+    <!-- <plugin
       filename="gz-sim-sensors-system"
       name="gz::sim::systems::Sensors">
-      <render_engine>ogre2</render_engine>
-    </plugin>
+    </plugin> -->
 
     <light type="directional" name="sun">
       <cast_shadows>true</cast_shadows>

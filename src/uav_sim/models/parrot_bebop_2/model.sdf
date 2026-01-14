@@ -20,49 +20,24 @@
       <visual name="hull">
         <geometry><mesh><uri>model://parrot_bebop_2/meshes/hull.dae</uri></mesh></geometry>
       </visual>
+
       <sensor name="imu_sensor" type="imu">
         <always_on>1</always_on>
-        <update_rate>250</update_rate> <visualize>true</visualize>
-        <topic>imu</topic>
+        <update_rate>250</update_rate>
+        <visualize>true</visualize>
+        
+        <topic>/imu</topic> 
+        
         <imu>
           <angular_velocity>
-            <x>
-              <noise type="gaussian">
-                <mean>0.0</mean>
-                <stddev>0.0</stddev> </noise>
-            </x>
-            <y>
-              <noise type="gaussian">
-                <mean>0.0</mean>
-                <stddev>0.0</stddev>
-              </noise>
-            </y>
-            <z>
-              <noise type="gaussian">
-                <mean>0.0</mean>
-                <stddev>0.0</stddev>
-              </noise>
-            </z>
+            <x><noise type="gaussian"><mean>0.0</mean><stddev>0.0</stddev></noise></x>
+            <y><noise type="gaussian"><mean>0.0</mean><stddev>0.0</stddev></noise></y>
+            <z><noise type="gaussian"><mean>0.0</mean><stddev>0.0</stddev></noise></z>
           </angular_velocity>
           <linear_acceleration>
-            <x>
-              <noise type="gaussian">
-                <mean>0.0</mean>
-                <stddev>0.0</stddev>
-              </noise>
-            </x>
-            <y>
-              <noise type="gaussian">
-                <mean>0.0</mean>
-                <stddev>0.0</stddev>
-              </noise>
-            </y>
-            <z>
-              <noise type="gaussian">
-                <mean>0.0</mean>
-                <stddev>0.0</stddev>
-              </noise>
-            </z>
+            <x><noise type="gaussian"><mean>0.0</mean><stddev>0.0</stddev></noise></x>
+            <y><noise type="gaussian"><mean>0.0</mean><stddev>0.0</stddev></noise></y>
+            <z><noise type="gaussian"><mean>0.0</mean><stddev>0.0</stddev></noise></z>
           </linear_acceleration>
         </imu>
       </sensor>
@@ -213,6 +188,13 @@
       <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient>
       <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
       <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+    </plugin>
+
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin filename="gz-sim-imu-system" 
+      name="gz::sim::systems::Imu">
     </plugin>
 
   </model>
