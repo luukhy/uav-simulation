@@ -20,18 +20,6 @@ KEY_S = 115
 KEY_U = 117
 KEY_J = 106
 
-class PID:
-    def __init__(self, kp, ki, kd, dt):
-        self.kp = kp
-        self.ki = ki
-        self.kd = kd
-        self.dt = dt
-    
-    def calculate(self, target, current):
-        error = 0
-
-    
-
 class FlightController(Node):
     def __init__(self):
         super().__init__("flight_controller")
