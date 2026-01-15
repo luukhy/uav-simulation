@@ -1,0 +1,26 @@
+teleop_twist_joy_node:
+  ros__parameters:
+    # --- MAPPING ---
+    axis_linear:
+      x: 4  # Right Stick Vertical (Pitch / Forward-Back)
+      y: 3  # Right Stick Horizontal (Roll / Left-Right)
+      z: 1  # Left Stick Vertical (Throttle / Up-Down)
+    
+    axis_angular:
+      yaw: 0  # Left Stick Horizontal (Yaw / Spin)
+
+    # --- SAFETY ---
+    enable_button: 4  # 'X' Button (Hold this to move)
+    require_enable_button: true
+
+    # --- TUNING (Max Speeds) ---
+    scale_linear:
+      x: 1.0   # Max Pitch Speed (m/s)
+      y: 1.0   # Max Roll Speed (m/s)
+      z: 1.0   # Max Throttle Speed (m/s)
+    
+    scale_angular:
+      yaw: 1.0 # Max Spin Speed (rad/s)
+      
+    # If a stick feels "inverted" (e.g. pushing UP makes it go DOWN), 
+    # change the scale to -1.0 for that axis.

@@ -21,7 +21,7 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(
             os.path.join(get_package_share_directory("ros_gz_sim"), "launch", "gz_sim.launch.py")
         ),
-        launch_arguments={'gz_args': f'-r {world_file}'}.items(),
+        launch_arguments={'gz_args': f'{world_file}'}.items(),
     )
 
     spawn_drone_box = Node(
@@ -41,6 +41,21 @@ def generate_launch_description():
             "-file", os.path.join(pkg_uav_sim, "models", "parrot_bebop_2", "model.sdf"),
             "-x", "5.0", "-y", "0.0", "-z", "0.5"], 
         output="screen"
+    )
+    joy_config_path = os.path.join(
+        get_package_share_directory('flight_controller'), 
+        'controller_config', 
+        'xbox_config.yaml'
+    )
+
+    joy_node = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(get_package_share_directory('teleop_twist_joy'), 'launch', 'teleop-launch.py')
+        ),
+        launch_arguments={
+            'config_filepath': joy_config_path,
+            'joy_vel': 'cmd_vel' # Ensure topic name matches
+        }.items(),
     )
 
     uav_simulation = Node(
@@ -77,6 +92,7 @@ def generate_launch_description():
         gazebo,
         spawn_drone_box,
         spawn_drone_model,
+        joy_node,
         bridge,
         uav_simulation,
         flight_controller
