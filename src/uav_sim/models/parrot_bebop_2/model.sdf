@@ -41,6 +41,7 @@
           </linear_acceleration>
         </imu>
       </sensor>
+
     </link>
 
     <link name="propeller_rr">

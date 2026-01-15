@@ -3,7 +3,6 @@ from rclpy.node import Node
 from std_msgs.msg import String
 from geometry_msgs.msg import Twist, Wrench
 from ros_gz_interfaces.msg import EntityWrench
-from keyboard_msgs.msg import Key
 
 ENTITY_NONE      = 0
 ENTITY_LIGHT     = 1
@@ -18,12 +17,6 @@ class UAVController(Node):
     def __init__(self):
         super().__init__("uav_controller")
         
-        self.sub = self.create_subscription(
-            Key,
-            "/keydown",
-            self.update_force,
-            10
-        )
 
         self.pub = self.create_publisher(
             EntityWrench,

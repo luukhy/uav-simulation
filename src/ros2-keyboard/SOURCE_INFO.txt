@@ -1,5 +1,0 @@
-Package: ros2-keyboard
-Source: https://github.com/cmower/ros2-keyboard
-Commit Hash: f1d8412 
-Date Retrieved: 2026-01-11
-Notes: Deleted .git folder to integrate into monorepo.

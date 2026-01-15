@@ -24,14 +24,6 @@ def generate_launch_description():
         launch_arguments={'gz_args': f'{world_file}'}.items(),
     )
 
-    spawn_drone_box = Node(
-        package="ros_gz_sim",
-        executable="create",
-        arguments=[
-            "-name", "drone_box",
-            "-file", os.path.join(pkg_uav_sim, "models", "drone_box.sdf")],
-        output="screen"
-    )
 
     spawn_drone_model = Node(
         package="ros_gz_sim",
@@ -42,6 +34,7 @@ def generate_launch_description():
             "-x", "5.0", "-y", "0.0", "-z", "0.5"], 
         output="screen"
     )
+
     joy_config_path = os.path.join(
         get_package_share_directory('flight_controller'), 
         'controller_config', 
@@ -56,12 +49,6 @@ def generate_launch_description():
             'config_filepath': joy_config_path,
             'joy_vel': 'cmd_vel' # Ensure topic name matches
         }.items(),
-    )
-
-    uav_simulation = Node(
-        package="uav_sim",
-        executable="uav_controller",
-        output="screen"
     )
 
     flight_controller = Node(
@@ -90,10 +77,8 @@ def generate_launch_description():
     return LaunchDescription([
         set_gz_resource_path,
         gazebo,
-        spawn_drone_box,
         spawn_drone_model,
         joy_node,
         bridge,
-        uav_simulation,
         flight_controller
     ])

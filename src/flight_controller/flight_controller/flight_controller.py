@@ -1,9 +1,7 @@
 import rclpy 
 import math
 from rclpy.node import Node 
-from std_msgs.msg import String 
 from geometry_msgs.msg import Twist
-from keyboard_msgs.msg import Key
 from actuator_msgs.msg import Actuators
 from sensor_msgs.msg import Imu
 from flight_controller import pid
@@ -20,15 +18,10 @@ FRONT_TO_REAR_FORCE_RATIO = 1.06847
 # FRONT_TO_REAR_VEL_RATIO = FRONT_TO_REAR_FORCE_RATIO ** 0.5
 FRONT_TO_REAR_VEL_RATIO = 1
 
-KEY_W = 119
-KEY_S = 115
-KEY_U = 117
-KEY_J = 106
-
 class FlightController(Node):
     def __init__(self):
         super().__init__("flight_controller")
-        self.max_tilt = 0.2
+        self.max_tilt = 0.4
         self.target_state = {   'x'      : INITIAL_X_POSITION,
                                 'y'      : INITIAL_Y_POSITION,
                                 'z'      : INITIAL_Z_POSITION,
@@ -51,15 +44,15 @@ class FlightController(Node):
         self.hover_speed_rear = hover_speed
                        
         kp_pitch_roll = 100.0
-        ki_pitch_roll = 10.0  
+        ki_pitch_roll = 5.0  
         kd_pitch_roll = 30.0 
 
-        kp_yaw = 10.0
-        ki_yaw = 0.1
-        kd_yaw = 0.3
+        kp_yaw = 40.0
+        ki_yaw = 0.0
+        kd_yaw = 0.0
 
         self.pid_pitch  = pid.PID(kp_pitch_roll, ki_pitch_roll, kd_pitch_roll, i_max=0.1 * hover_speed)
-        self.pid_roll   = pid.PID(kp_pitch_roll * 0.8, ki_pitch_roll, kd_pitch_roll)
+        self.pid_roll   = pid.PID(kp_pitch_roll * 0.8, ki_pitch_roll, kd_pitch_roll, i_max=0.1 * hover_speed)
         self.pid_yaw    = pid.PID(kp_yaw, ki_yaw, kd_yaw)
 
         self.key_down = 0
@@ -127,7 +120,7 @@ class FlightController(Node):
         self.target_state['pitch'] = -1.0 * self.max_tilt * msg.linear.x
         self.target_state['roll']  = 1.0 * self.max_tilt * msg.linear.y
         self.target_state['yaw']  = msg.angular.z
-        self.target_state['throttle'] = msg.linear.z * 20.0
+        self.target_state['throttle'] = msg.linear.z * 40.0
     
     def imu_callback(self, msg: Imu):
         quat = msg.orientation
