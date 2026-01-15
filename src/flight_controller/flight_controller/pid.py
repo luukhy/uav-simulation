@@ -6,17 +6,15 @@ class PID:
         self.i_max = i_max
         
         self.integral = 0.0
-        self.prev_input = 0.0  # Tracks POSITION, not error
+        self.prev_input = 0.0  
         self.first_run = True
 
     def calculate(self, target, current, dt) -> float:
         if dt <= 0.0: return 0.0
 
-        # 1. P-Term
         error = target - current
         p_term = self.kp * error
 
-        # 2. I-Term
         self.integral += error * dt
         self.integral = max(min(self.integral, self.i_max), -self.i_max)
         i_term = self.ki * self.integral

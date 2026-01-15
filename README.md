@@ -1,7 +1,7 @@
 # ROS 2 Quadcopter Simulation and PID Control
 
 ## Project Overview
-This repository contains a quadcopter simulation environment developed using **ROS 2 Jazzy** and **Gazebo Harmonic (GZ Sim 8)**. The project implements a custom flight control stack, focusing on stable attitude control, teleoperation integration, and real-time sensor telemetry.
+This repository contains a quadcopter simulation environment developed using **ROS 2 Jazzy** and **Gazebo Harmonic (GZ Sim 8.10.0)**. The project implements a custom flight control stack, focusing on stable attitude control, teleoperation integration, and real-time sensor telemetry.
 
 
 

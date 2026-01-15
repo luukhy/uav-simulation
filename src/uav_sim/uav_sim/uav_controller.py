@@ -1,3 +1,7 @@
+'''
+FILE NOT RELEVANT TO THE PROJECT
+it used to serve as an early prototype for ROS<->GZ bridging  
+'''
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
