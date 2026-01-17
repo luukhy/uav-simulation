@@ -6,9 +6,9 @@ from actuator_msgs.msg import Actuators
 from sensor_msgs.msg import Imu
 from flight_controller import pid
 
-INITIAL_X_POSITION = 0
-INITIAL_Y_POSITION = 0
-INITIAL_Z_POSITION = 0
+INITIAL_X_VEL = 0
+INITIAL_Y_VEL = 0
+INITIAL_Z_VEL = 0
 INITIAL_THROTTLE = 0
 INITIAL_ROLL_POSITION = 0
 INITIAL_PITCH_POSITION = 0
@@ -22,22 +22,14 @@ class FlightController(Node):
     def __init__(self):
         super().__init__("flight_controller")
         self.max_tilt = 0.4
-        self.target_state = {   'x'      : INITIAL_X_POSITION,
-                                'y'      : INITIAL_Y_POSITION,
-                                'z'      : INITIAL_Z_POSITION,
-                                'roll'   : INITIAL_ROLL_POSITION,
-                                'pitch'  : INITIAL_PITCH_POSITION,
-                                'yaw'    : INITIAL_YAW_POSITION,
-                                'throttle' : INITIAL_THROTTLE,
+        self.target_state = {   'x_vel' : INITIAL_X_VEL,
+                                'y_vel' : INITIAL_Y_VEL,
+                                'z_vel' : INITIAL_Z_VEL,
                             }
         
-        self.current_state = {  'x'      : INITIAL_X_POSITION,
-                                'y'      : INITIAL_Y_POSITION,
-                                'z'      : INITIAL_Z_POSITION,
-                                'roll'   : INITIAL_ROLL_POSITION,
-                                'pitch'  : INITIAL_PITCH_POSITION,
-                                'yaw'    : INITIAL_YAW_POSITION,
-                                'throttle' : INITIAL_THROTTLE,
+        self.current_state= {   'x_vel' : INITIAL_X_VEL,
+                                'y_vel' : INITIAL_Y_VEL,
+                                'z_vel' : INITIAL_Z_VEL,
                             }
         hover_speed = 387.2
         self.hover_speed_front = FRONT_TO_REAR_VEL_RATIO * hover_speed
