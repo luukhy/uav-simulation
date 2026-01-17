@@ -67,6 +67,7 @@ def generate_launch_description():
             "/bebop/command/motor_speed/prop_rr@actuator_msgs/msg/Actuators]gz.msgs.Actuators",
             "/bebop/command/motor_speed/prop_rl@actuator_msgs/msg/Actuators]gz.msgs.Actuators",
             "/imu@sensor_msgs/msg/Imu[gz.msgs.IMU",
+            "/bebop/odometry@nav_msgs/msg/Odometry[gz.msgs.Odometry",
         ],
         output="screen"
     )

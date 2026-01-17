@@ -6,9 +6,9 @@ from actuator_msgs.msg import Actuators
 from sensor_msgs.msg import Imu
 from flight_controller import pid
 
-INITIAL_X_VEL = 0
-INITIAL_Y_VEL = 0
-INITIAL_Z_VEL = 0
+INITIAL_X_POSITION = 0
+INITIAL_Y_POSITION = 0
+INITIAL_Z_POSITION = 0
 INITIAL_THROTTLE = 0
 INITIAL_ROLL_POSITION = 0
 INITIAL_PITCH_POSITION = 0
@@ -22,30 +22,46 @@ class FlightController(Node):
     def __init__(self):
         super().__init__("flight_controller")
         self.max_tilt = 0.4
-        self.target_state = {   'x_vel' : INITIAL_X_VEL,
-                                'y_vel' : INITIAL_Y_VEL,
-                                'z_vel' : INITIAL_Z_VEL,
+        self.target_state = {   'x_vel'      : INITIAL_X_POSITION,
+                                'y_vel'      : INITIAL_Y_POSITION,
+                                'z_vel'      : INITIAL_Z_POSITION,
+                                'roll'   : INITIAL_ROLL_POSITION,
+                                'pitch'  : INITIAL_PITCH_POSITION,
+                                'yaw'    : INITIAL_YAW_POSITION,
+                                'throttle' : INITIAL_THROTTLE,
                             }
         
-        self.current_state= {   'x_vel' : INITIAL_X_VEL,
-                                'y_vel' : INITIAL_Y_VEL,
-                                'z_vel' : INITIAL_Z_VEL,
+        self.current_state = {  'x_vel'      : INITIAL_X_POSITION,
+                                'y_vel'      : INITIAL_Y_POSITION,
+                                'z_vel'      : INITIAL_Z_POSITION,
+                                'roll'   : INITIAL_ROLL_POSITION,
+                                'pitch'  : INITIAL_PITCH_POSITION,
+                                'yaw'    : INITIAL_YAW_POSITION,
+                                'throttle' : INITIAL_THROTTLE,
                             }
         hover_speed = 387.2
         self.hover_speed_front = FRONT_TO_REAR_VEL_RATIO * hover_speed
         self.hover_speed_rear = hover_speed
                        
-        kp_pitch_roll = 100.0
-        ki_pitch_roll = 5.0  
-        kd_pitch_roll = 30.0 
+        kp_ang_pitch_roll = 100.0
+        ki_ang_pitch_roll = 5.0  
+        kd_ang_pitch_roll = 30.0 
 
-        kp_yaw = 40.0
-        ki_yaw = 0.0
-        kd_yaw = 0.0
 
-        self.pid_pitch  = pid.PID(kp_pitch_roll, ki_pitch_roll, kd_pitch_roll, i_max=0.1 * hover_speed)
-        self.pid_roll   = pid.PID(kp_pitch_roll * 0.8, ki_pitch_roll, kd_pitch_roll, i_max=0.1 * hover_speed)
-        self.pid_yaw    = pid.PID(kp_yaw, ki_yaw, kd_yaw)
+        kp_ang_yaw = 40.0
+        ki_ang_yaw = 0.0
+        kd_ang_yaw = 0.0
+
+        self.pid_ang_pitch  = pid.PID(kp_ang_pitch_roll, ki_ang_pitch_roll, kd_ang_pitch_roll, i_max=0.1 * hover_speed)
+        self.pid_ang_roll   = pid.PID(kp_ang_pitch_roll * 0.8, ki_ang_pitch_roll, kd_ang_pitch_roll, i_max=0.1 * hover_speed)
+        self.pid_ang_yaw    = pid.PID(kp_ang_yaw, ki_ang_yaw, kd_ang_yaw)
+
+        kp_vel_pitch_roll = 100.0
+        ki_vel_pitch_roll = 5.0  
+        kd_vel_pitch_roll = 30.0 
+
+        self.pid_vel_pitch  = pid.PID(kp_vel_pitch_roll, ki_vel_pitch_roll, kd_ang_pitch_roll, i_max=0.1 * hover_speed)
+        self.pid_vel_roll   = pid.PID(kp_vel_pitch_roll * 0.8, ki_vel_pitch_roll, kd_vel_pitch_roll, i_max=0.1 * hover_speed)
 
         self.key_down = 0
 
@@ -75,13 +91,13 @@ class FlightController(Node):
         self.pub_fl = self.create_publisher( Actuators, "/bebop/command/motor_speed/prop_fl", 10)
     
     def control_loop(self):
-        pitch_output = self.pid_pitch.calculate(self.target_state['pitch'], 
+        pitch_output = self.pid_ang_pitch.calculate(self.target_state['pitch'], 
                                                 self.current_state['pitch'], 
                                                 self.dt)
-        roll_output  = self.pid_roll.calculate(self.target_state['roll'], 
+        roll_output  = self.pid_ang_roll.calculate(self.target_state['roll'], 
                                                self.current_state['roll'], 
                                                self.dt)
-        yaw_output   = self.pid_yaw.calculate(self.target_state['yaw'], 
+        yaw_output   = self.pid_ang_yaw.calculate(self.target_state['yaw'], 
                                               self.current_state['yaw'],
                                               self.dt)
 
